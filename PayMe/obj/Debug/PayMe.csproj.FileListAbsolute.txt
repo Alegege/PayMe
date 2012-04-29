@@ -1,0 +1,15 @@
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\ApplicationIcon.png
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\Background.png
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\PayMe.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\PayMe.pdb
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\AppManifest.xaml
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\PayMe.xap
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\Microsoft.Phone.Controls.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\Microsoft.Phone.Controls.xml
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\ResolveAssemblyReference.cache
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\App.g.cs
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\MainPage.g.cs
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.g.resources
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.pdb
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\XapCacheFile.xml

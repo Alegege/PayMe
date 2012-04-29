@@ -1,0 +1,72 @@
+﻿<phone:PhoneApplicationPage
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
+	x:Class="PayMe.MainPage"
+	d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+	FontFamily="{StaticResource PhoneFontFamilyNormal}"
+	FontSize="{StaticResource PhoneFontSizeNormal}"
+	Foreground="{StaticResource PhoneForegroundBrush}"
+	SupportedOrientations="Portrait" Orientation="Portrait"
+	shell:SystemTray.IsVisible="False"
+	>
+
+	<phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="PayMeItemModelTemplate">
+            <StackPanel Background="{StaticResource PhoneAccentBrush}" Width="288" Height="160" Margin="0,0,10,10" Tap="StackPanel_Tap">
+        		<TextBlock Text="{Binding Time}" FontSize="86.667" HorizontalAlignment="Center" Margin="0,-18,0,0" Foreground="White" VerticalAlignment="Top" Padding="0"/>
+                <TextBlock Height="70" TextWrapping="Wrap" Text="{Binding City}" Margin="5,-7,5,0" FontSize="26.667" Foreground="White" HorizontalAlignment="Center"/>
+            </StackPanel>    
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+	
+	<!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+
+		<!--Control Panorama-->
+		<controls:Panorama Title="my application">
+			<controls:Panorama.Background>
+				<ImageBrush ImageSource="PanoramaBackground.png"/>
+			</controls:Panorama.Background>
+
+			<!--Elemento uno de Panorama-->
+			<controls:PanoramaItem x:Name="My_PayMe_s" Header="My PayMe's">
+				<!--Lista de línea doble con ajuste de texto-->
+				<ListBox Margin="0,0,-12,0">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel Margin="0,0,0,17" Width="432" Height="78">
+								<TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+								<TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</controls:PanoramaItem>
+
+			<!--Elemento dos de Panorama-->
+			<controls:PanoramaItem Header="second item">
+				<!--Lista de línea doble con marcador de posición de imagen y ajuste de texto-->
+				<ListBox ItemsSource="{Binding Items}" Margin="0,0,-12,0">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="105" Width="432">
+								<!--Reemplazar rectángulo por la imagen-->
+								<Rectangle Height="100" Width="100" Fill="#FFE5001b" Margin="12,0,9,0"/>
+								<StackPanel Width="311">
+									<TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+									<TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+								</StackPanel>
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</controls:PanoramaItem>
+		</controls:Panorama>
+	</Grid>
+</phone:PhoneApplicationPage>
