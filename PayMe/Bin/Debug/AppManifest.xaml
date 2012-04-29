@@ -2,5 +2,6 @@
   <Deployment.Parts>
     <AssemblyPart x:Name="PayMe" Source="PayMe.dll" />
     <AssemblyPart x:Name="Microsoft.Phone.Controls" Source="Microsoft.Phone.Controls.dll" />
+    <AssemblyPart x:Name="System.Windows.Interactivity" Source="System.Windows.Interactivity.dll" />
   </Deployment.Parts>
 </Deployment>

@@ -13,3 +13,14 @@ D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.g.resources
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.dll
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.pdb
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\XapCacheFile.xml
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\System.Windows.Interactivity.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\System.Windows.Interactivity.xml
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\de\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\en\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\es\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\fr\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\it\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\ja\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\ko\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll

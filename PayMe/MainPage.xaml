@@ -5,7 +5,7 @@
 	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
 	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="PayMe"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
 	x:Class="PayMe.MainPage"
 	d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
@@ -20,7 +20,7 @@
 	<Grid x:Name="LayoutRoot" Background="Transparent">
 
 		<!--Control Panorama-->
-		<controls:Panorama Title="my application">
+		<controls:Panorama Title="PayMe">
 			<controls:Panorama.Background>
 				<ImageBrush ImageSource="PanoramaBackground.png"/>
 			</controls:Panorama.Background>
@@ -28,15 +28,15 @@
 			<!--Elemento uno de Panorama-->
 			<controls:PanoramaItem x:Name="My_PayMe_s" Header="My PayMe's">
 				<!--Lista de línea doble con ajuste de texto-->
-				<ListBox ItemsSource="{Binding Items}" Margin="0,0,-12,0">
+				<ListBox ItemsSource="{Binding PayMes}" Margin="0,0,-12,0">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="105" Width="432">
 								<!--Reemplazar rectángulo por la imagen-->
 								<Rectangle Height="100" Width="100" Fill="#FFE5001b" Margin="12,0,9,0"/>
 								<StackPanel Width="311">
-									<TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-									<TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+									<TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+									<TextBlock Text="{Binding CreationDate}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
 								</StackPanel>
 							</StackPanel>
 						</DataTemplate>
@@ -45,17 +45,16 @@
 			</controls:PanoramaItem>
 
 			<!--Elemento dos de Panorama-->
-			<controls:PanoramaItem Header="second item">
+			<controls:PanoramaItem Header="My PayMe's">
 				<!--Lista de línea doble con marcador de posición de imagen y ajuste de texto-->
-				<ListBox ItemsSource="{Binding Items}" Margin="0,0,-12,0">
+				<ListBox ItemsSource="{Binding PayMes}" Margin="0,0,-12,0">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<StackPanel Background="{StaticResource PhoneAccentBrush}" Orientation="Horizontal" Margin="0,0,0,17" Height="105" Width="432">
-								<!--Reemplazar rectángulo por la imagen-->
-								<Rectangle Height="100" Width="390" Fill="#FFE5001b" Margin="12,0,9,0"/>
-								<StackPanel Width="311">
-									<TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-									<TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+							<StackPanel Background="{StaticResource PhoneAccentBrush}" Orientation="Horizontal" Margin="0,0,0,17" Height="105" Width="390">								
+								<StackPanel Width="380">
+									<TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+									<TextBlock Text="{Binding PaidParticipantsValue}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSmallStyle}" />
+									<TextBlock Text="{Binding CreationDateValue}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
 								</StackPanel>
 							</StackPanel>
 						</DataTemplate>

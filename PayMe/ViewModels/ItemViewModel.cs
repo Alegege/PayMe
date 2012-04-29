@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
@@ -15,21 +16,21 @@ namespace PayMe
 {
     public class ItemViewModel : INotifyPropertyChanged 
     {
-        private string _lineOne;
+        private string _title;
         /// <summary>
         /// Propiedad ViewModel de ejemplo; esta propiedad se usa en la vista para mostrar su valor por medio de un enlace.
         /// </summary>
         /// <returns></returns>
-        public string LineOne 
+        public string Title 
         {
             get 
             {
-                return _lineOne;
+                return _title;
             }
             set 
             {
-                _lineOne = value;
-                NotifyPropertyChanged("LineOne");
+                _title = value;
+                NotifyPropertyChanged("Title");
             }
         }
         
