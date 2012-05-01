@@ -83,7 +83,7 @@ namespace PayMe
 			if (this.TitleInput.Text != String.Empty &&
 				this.AmountInput.Text != String.Empty)
 			{
-				App.PayMeList.PayMes.Add(new PayMeItemViewModel(this.TitleInput.Text, Convert.ToInt32(this.AmountInput.Text)));
+				App.PayMeList.PayMes.Add(new PayMeItemViewModel(this.TitleInput.Text, 10, Convert.ToDouble(this.AmountInput.Text)));
 			}
 		}
     }
