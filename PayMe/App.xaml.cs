@@ -17,21 +17,21 @@ namespace PayMe
 {
     public partial class App : Application
     {
-        private static PayMeListViewModel viewModel = null;
+        private static PayMeListViewModel payMeList = null;
 
         /// <summary>
         /// ViewModel estático que utilizan las vistas para enlazarse.
         /// </summary>
         /// <returns>Objeto MainViewModel.</returns>
-        public static PayMeListViewModel ViewModel
+        public static PayMeListViewModel PayMeList
         {
             get
             {
                 // Retrasar la creación del modelo de vista hasta que sea necesario
-                if (viewModel == null)
-                    viewModel = new PayMeListViewModel();
+                if (payMeList == null)
+                    payMeList = new PayMeListViewModel();
 
-                return viewModel;
+                return payMeList;
             }
         }
 
@@ -81,9 +81,9 @@ namespace PayMe
         // Este código no se ejecutará cuando se inicia la aplicación por primera vez
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
+            if (!App.PayMeList.IsDataLoaded)
             {
-                App.ViewModel.LoadData();
+                App.PayMeList.LoadData();
             }
         }
 

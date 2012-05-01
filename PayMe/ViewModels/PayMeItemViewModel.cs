@@ -16,67 +16,83 @@ namespace PayMe
 {
 	public class PayMeItemViewModel : INotifyPropertyChanged 
 	{
-		public PayMeItemViewModel()
-		{
-			// A partir de este punto se requiere la inserción de código para la creación del objeto.
+		private string title;
+		
+		private int participants;
+		
+		private int paidParticipants;
+		
+		private DateTime creationDate;
+		
+		public PayMeItemViewModel() {
 		}
 		
-		private string _title;
+		public PayMeItemViewModel(string title, int participants)
+		{
+			this.title = title;
+			this.participants = participants;
+			this.paidParticipants = 0;
+			this.creationDate = DateTime.Now;
+		}
 		
-		private string _participants;
+		public PayMeItemViewModel(string title, int participants, int paidParticipants, DateTime creationDate)
+		{
+			this.title = title;
+			this.participants = participants;
+			this.paidParticipants = paidParticipants;
+			this.creationDate = creationDate;
+		}
 		
-		private string _paidParticipants;
 		
-		private string _creationDate;
 		
 		public string Title 
         {
             get 
             {
-                return _title;
+                return title;
             }
             set 
             {
-                _title = value;
+                title = value;
                 NotifyPropertyChanged("Title");
             }
         }
 		
-		public string Participants 
+		public int Participants 
         {
             get 
             {
-                return _participants;
+                return participants;
             }
             set 
             {
-                _participants = value;
+                participants = value;
                 NotifyPropertyChanged("Participants");
             }
         }
 		
-		public string PaidParticipants 
+		public int PaidParticipants 
         {
             get 
             {
-                return _paidParticipants;
+                return paidParticipants;
             }
             set 
             {
-                _paidParticipants = value;
+                paidParticipants = value;
                 NotifyPropertyChanged("PaidParticipants");
             }
         }
 		
-		public string CreationDate 
+		public DateTime CreationDate 
         {
             get 
             {
-                return _creationDate;
+                return creationDate;
             }
             set 
             {
-                _creationDate = value;
+                creationDate = value;
                 NotifyPropertyChanged("CreationDate");
             }
         }
@@ -85,12 +101,7 @@ namespace PayMe
         {
             get 
             {
-                return string.Format("{0} {1} {2} {3}", "Paid:", this._paidParticipants, "of", this._participants);
-            }
-            set 
-            {
-                _creationDate = value;
-                NotifyPropertyChanged("CreationDate");
+                return string.Format("{0} {1} {2} {3}", "Paid:", this.paidParticipants, "of", this.participants);
             }
         }
 		
@@ -98,12 +109,7 @@ namespace PayMe
         {
             get 
             {
-                return string.Format("{0} {1}", "Created:", this._creationDate);
-            }
-            set 
-            {
-                _creationDate = value;
-                NotifyPropertyChanged("CreationDate");
+                return string.Format("{0} {1}", "Created:", this.creationDate);
             }
         }
 		

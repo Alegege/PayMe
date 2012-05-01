@@ -7,8 +7,6 @@ D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\PayMe.xap
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\Microsoft.Phone.Controls.dll
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\Microsoft.Phone.Controls.xml
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\ResolveAssemblyReference.cache
-D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\App.g.cs
-D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\MainPage.g.cs
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.g.resources
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.dll
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PayMe.pdb
@@ -24,3 +22,5 @@ D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\ja\System.Windows.Interacti
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\ko\System.Windows.Interactivity.resources.dll
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\App.g.cs
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\MainPage.g.cs
