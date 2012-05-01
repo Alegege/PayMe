@@ -85,7 +85,7 @@ namespace PayMe
         {
             get 
             {
-                return string.Format("{0} {1} {2} {3}", "Pagados:", this._paidParticipants, "de", this._participants);
+                return string.Format("{0} {1} {2} {3}", "Paid:", this._paidParticipants, "of", this._participants);
             }
             set 
             {
@@ -98,7 +98,7 @@ namespace PayMe
         {
             get 
             {
-                return string.Format("{0} {1}", "Creado:", this._creationDate);
+                return string.Format("{0} {1}", "Created:", this._creationDate);
             }
             set 
             {

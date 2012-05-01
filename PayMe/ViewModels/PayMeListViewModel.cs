@@ -15,9 +15,9 @@ using System.Collections.ObjectModel;
 
 namespace PayMe
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class PayMeListViewModel : INotifyPropertyChanged
     {
-        public MainViewModel()
+        public PayMeListViewModel()
         {
             this.PayMes = new ObservableCollection<PayMeItemViewModel>();
         }
@@ -59,6 +59,8 @@ namespace PayMe
             // Datos de ejemplo; reemplazar por datos reales
             this.PayMes.Add(new PayMeItemViewModel() { Title = "Cumpleaños Sergi", Participants = "17", PaidParticipants = "12", CreationDate = "20/04/2012" });
             this.PayMes.Add(new PayMeItemViewModel() { Title = "Barbacoa casa Pau", Participants = "28", PaidParticipants = "3", CreationDate = "13/02/2012" });
+			this.PayMes.Add(new PayMeItemViewModel() { Title="Regalo Jordi", Participants="22", PaidParticipants="21", CreationDate = "12/04/2012" });
+			this.PayMes.Add(new PayMeItemViewModel() { Title="Karts despedida Antonio", Participants="11", PaidParticipants="5", CreationDate = "23/04/2012" });
 
             this.IsDataLoaded = true;
         }

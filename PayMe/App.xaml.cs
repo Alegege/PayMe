@@ -17,19 +17,19 @@ namespace PayMe
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
+        private static PayMeListViewModel viewModel = null;
 
         /// <summary>
         /// ViewModel estático que utilizan las vistas para enlazarse.
         /// </summary>
         /// <returns>Objeto MainViewModel.</returns>
-        public static MainViewModel ViewModel
+        public static PayMeListViewModel ViewModel
         {
             get
             {
                 // Retrasar la creación del modelo de vista hasta que sea necesario
                 if (viewModel == null)
-                    viewModel = new MainViewModel();
+                    viewModel = new PayMeListViewModel();
 
                 return viewModel;
             }
