@@ -22,5 +22,10 @@ D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\ja\System.Windows.Interacti
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\ko\System.Windows.Interactivity.resources.dll
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\icons\appbar.add.rest.png
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\Bin\Debug\icons\appbar.feature.settings.rest.png
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\App.g.cs
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\Configuration.g.cs
 D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\MainPage.g.cs
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\NewPayMePage.g.cs
+D:\Ale\Proyectos\Windows Phone\PayMe\PayMe\obj\Debug\PivotPage1.g.cs
