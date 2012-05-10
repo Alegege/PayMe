@@ -154,5 +154,21 @@ namespace PayMe
         }
 
         #endregion
+		
+		private void newButton_Click(object sender, EventArgs e) {
+            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/NewPayMePage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Configuration.xaml", UriKind.RelativeOrAbsolute));
+            //Do work for your application here.
+        }
+
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Button 3 works!");
+            //Do work for your application here.
+        }
     }
 }

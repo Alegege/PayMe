@@ -1,7 +1,6 @@
 ﻿<PayMe:PayMeListViewModel 
 xmlns:PayMe="clr-namespace:PayMe" 
-IsDataLoaded="True" 
-SampleProperty="Eleifend integer">
+IsDataLoaded="True" >
 	<PayMe:PayMeListViewModel.PayMes>
 		<PayMe:PayMeItemViewModel Title="Cumpleaños Sergi" Participants="17" PaidParticipants="12" CreationDate = "4/20/2012"/>
 		<PayMe:PayMeItemViewModel Title="Barbacoa casa Pau" Participants="28" PaidParticipants="3" CreationDate = "2/13/2012"/>

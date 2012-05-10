@@ -53,7 +53,6 @@ namespace PayMe {
             }
             set {
                 title = value;
-                NotifyPropertyChanged("Title");
             }
         }
 		
@@ -63,7 +62,6 @@ namespace PayMe {
             }
             set {
                 participants = value;
-                NotifyPropertyChanged("Participants");
             }
         }
 		
@@ -73,7 +71,6 @@ namespace PayMe {
             }
             set {
                 paidParticipants = value;
-                NotifyPropertyChanged("PaidParticipants");
             }
         }
 		
@@ -83,7 +80,6 @@ namespace PayMe {
             }
             set {
                 creationDate = value;
-                NotifyPropertyChanged("CreationDate");
             }
         }
 		
@@ -93,7 +89,6 @@ namespace PayMe {
             }
             set {
                 totalAmount = value;
-                NotifyPropertyChanged("TotalAmount");
             }
         }
 		
@@ -103,7 +98,6 @@ namespace PayMe {
             }
             set {
                 partialAmount = value;
-                NotifyPropertyChanged("PartialAmount");
             }
         }
 		
@@ -116,13 +110,6 @@ namespace PayMe {
 		public string CreationDateValue {
             get {
                 return string.Format("{0} {1}", "Created:", String.Format("{0:d/M/yyyy}", this.creationDate));
-            }
-        }
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName) {
-            if (null != PropertyChanged) {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 	}

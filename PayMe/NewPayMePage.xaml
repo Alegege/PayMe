@@ -8,7 +8,9 @@
 	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
 	x:Class="PayMe.NewPayMePage"
-	Orientation="Portrait">
+	Orientation="Portrait"
+	ApplicationBar = "{StaticResource NewPayMeApplicationBar}"
+	>
 
 	<phone:PhoneApplicationPage.Resources>
 		<SolidColorBrush x:Key="RoudedBorderBrush" Color="White"/>
@@ -65,9 +67,6 @@
 			</Setter>
 		</Style>
 	</phone:PhoneApplicationPage.Resources>
-	<phone:PhoneApplicationPage.ApplicationBar>
-		<shell:ApplicationBar/>
-	</phone:PhoneApplicationPage.ApplicationBar>
 	<phone:PhoneApplicationPage.FontFamily>
 		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
 	</phone:PhoneApplicationPage.FontFamily>
@@ -91,7 +90,7 @@
 		<!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
 		<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
 			<TextBlock x:Name="ApplicationTitle" Text="PayMe" Style="{StaticResource PhoneTextNormalStyle}"/>
-			<TextBlock x:Name="PageTitle" Text="New PayMe" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+			<TextBlock x:Name="PageTitle" Text="new PayMe" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
 		</StackPanel>
 
 		<!--ContentPanel: coloque aquí el contenido adicional-->
@@ -102,13 +101,19 @@
 					LostFocus="TextInputTitle_LostFocus"/>
 				<TextBox x:Name="AmountInput" TextWrapping="Wrap" Text="Amount" Foreground="Gray"
 					GotFocus="TextInputAmount_GotFocus"
-					LostFocus="TextInputAmount_LostFocus"/>
+					LostFocus="TextInputAmount_LostFocus" InputScope="Number"/>
 				<TextBlock x:Name="ParticipantsLabel" TextWrapping="Wrap" Margin="11,0,0,0" Height="34"><Run Text="Participants"/><LineBreak/><Run/></TextBlock>
+				
+				<ListBox x:Name="EmailList" ItemsSource="{Binding Contacts}">
+					<ListBoxItem Content="{Binding Email}" />
+				</ListBox>
+				
 				<Button x:Name="AddParticipantButton" HorizontalAlignment="Center" 
 					Width="70" Height="70" Foreground="White" 
 					BorderBrush="{StaticResource RoudedBorderBrush}" 
 					Style="{StaticResource RoundedButtonStyle}" 
-					VerticalAlignment="Center" UseLayoutRounding="True">
+					VerticalAlignment="Center" UseLayoutRounding="True"
+					Click="btnContacts_Click">
 					<Image x:Name="AddParticipantImage" 
 						Source="resources/images/icons/dark/appbar.add.rest.png" 
 						Width="22" RenderTransformOrigin="3.114,-0.188" Height="22">
@@ -119,7 +124,6 @@
 				</Button>
 				<Button x:Name="CreatePayMeButton" Content="Create" Height="72" 
 					Margin="140,0,136,0" Click="CreatePayMe" />
-					
 			</StackPanel>
 		</Grid>
 	</Grid>
