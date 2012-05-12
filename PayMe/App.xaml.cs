@@ -73,8 +73,7 @@ namespace PayMe
 
         // Código que se ejecuta al iniciar la aplicación (p. ej., desde Inicio)
         // Este código no se ejecutará cuando se vuelva a activar la aplicación
-        private void Application_Launching(object sender, LaunchingEventArgs e)
-        {
+        private void Application_Launching(object sender, LaunchingEventArgs e) {
         }
 
         // Código que se ejecuta al activar la aplicación (pasa a primer plano)
@@ -95,8 +94,8 @@ namespace PayMe
 
         // Código que se ejecuta al cerrar la aplicación (p. ej., cuando el usuario pulsa Atrás)
         // Este código no se ejecutará cuando se desactive la aplicación
-        private void Application_Closing(object sender, ClosingEventArgs e)
-        {
+        private void Application_Closing(object sender, ClosingEventArgs e) {
+            payMeList.SaveToDisk();
         }
 
         // Código que se ejecuta si se produce un error en una navegación
