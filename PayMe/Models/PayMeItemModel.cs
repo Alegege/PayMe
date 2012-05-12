@@ -13,7 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace PayMe {
-	public class PayMeItemViewModel {
+	public class PayMeItemModel {
 		
 		private string title;
 		private int participants;
@@ -22,25 +22,19 @@ namespace PayMe {
 		private int paidParticipants;
 		private DateTime creationDate;
 		
-		public PayMeItemViewModel() {
+		public PayMeItemModel() {
 		}
 		
-		public PayMeItemViewModel(string title, int participants, double totalAmount) {
+		public PayMeItemModel(string title, int participants, double totalAmount) {
 			this.title = title;
 			this.participants = participants;
 			this.totalAmount = totalAmount;
-			
-			if (participants <= 1) {
-				this.partialAmount = totalAmount;
-			} else {
-                this.partialAmount = Math.Round(totalAmount / participants, 2);
-			}
-			
+			this.partialAmount = Math.Round(totalAmount / participants, 2);
 			this.paidParticipants = 0;
 			this.creationDate = DateTime.Now;
 		}
 		
-		public PayMeItemViewModel(string title, int participants, double totalAmount, int paidParticipants, DateTime creationDate) 
+		public PayMeItemModel(string title, int participants, double totalAmount, int paidParticipants, DateTime creationDate) 
 			: this (title, participants, totalAmount) {
 				
 			this.paidParticipants = paidParticipants;
