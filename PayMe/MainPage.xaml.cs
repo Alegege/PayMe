@@ -33,5 +33,10 @@ namespace PayMe
                 App.PayMeList.LoadData();
             }
         }
+		
+		public void PayMe_Tap(object sender, System.Windows.Input.GestureEventArgs e) {
+
+            NavigationService.Navigate(new Uri("/NewPayMePage.xaml", UriKind.RelativeOrAbsolute));
+		}
     }
 }

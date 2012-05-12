@@ -4,9 +4,10 @@
 	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
 	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
 	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="PayMe"
-	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728" 
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
 	x:Class="PayMe.MainPage"
 	d:DataContext="{d:DesignData SampleData/PayMeListViewModelSampleData.xaml}"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -14,7 +15,9 @@
 	Foreground="{StaticResource PhoneForegroundBrush}"
 	SupportedOrientations="Portrait" Orientation="Portrait"
 	ApplicationBar = "{StaticResource PivotApplicationBar}"
+	toolkit:TiltEffect.IsTiltEnabled="True"
 	>
+	
 	<phone:PhoneApplicationPage.Resources>
 		<SolidColorBrush x:Key="RoudedBorderBrush" Color="White"/>
 		<Style x:Key="RoundedButtonStyle" TargetType="Button">
@@ -85,12 +88,10 @@
 					<ListBox x:Name="payMeList" ItemsSource="{Binding PayMes}" Margin="0,0,8,8">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
-								<StackPanel Background="{StaticResource PhoneAccentBrush}" Orientation="Horizontal" Margin="0,0,0,17" Height="105" Width="390">								
-									<StackPanel Width="380">
-										<TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-										<TextBlock Text="{Binding PaidParticipantsValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSmallStyle}" />
-										<TextBlock Text="{Binding CreationDateValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
-									</StackPanel>
+								<StackPanel Background="{StaticResource PhoneAccentBrush}" Margin="0,0,0,17" Height="105" Width="390" Tap="PayMe_Tap">
+									<TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+									<TextBlock Text="{Binding PaidParticipantsValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSmallStyle}" />
+									<TextBlock Text="{Binding CreationDateValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
 								</StackPanel>
 							</DataTemplate>
 						</ListBox.ItemTemplate>
