@@ -6,7 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
 	x:Class="PayMe.NewPayMePage"
 	Orientation="Portrait"
 	ApplicationBar = "{StaticResource NewPayMeApplicationBar}"
@@ -102,11 +102,17 @@
 				<TextBox x:Name="AmountInput" TextWrapping="Wrap" Text="Amount" Foreground="Gray"
 					GotFocus="TextInputAmount_GotFocus"
 					LostFocus="TextInputAmount_LostFocus" InputScope="Number"/>
-				<TextBlock x:Name="ParticipantsLabel" TextWrapping="Wrap" Margin="11,0,0,0" Height="34"><Run Text="Participants"/><LineBreak/><Run/></TextBlock>
+                <TextBlock x:Name="ParticipantsLabel" TextWrapping="Wrap" Margin="11,0,0,0" Height="34"><Run Text="Participants"/><LineBreak/><Run/></TextBlock>
 				
 				<ListBox x:Name="EmailList" ItemsSource="{Binding Contacts}">
-					<ListBoxItem Content="{Binding Email}" />
-				</ListBox>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Email}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 				
 				<Button x:Name="AddParticipantButton" HorizontalAlignment="Center" 
 					Width="70" Height="70" Foreground="White" 

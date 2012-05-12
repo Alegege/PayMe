@@ -12,30 +12,25 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
+using System.Xml.Serialization;
+using System.IO;
+using System.IO.IsolatedStorage;
 
 namespace PayMe {
     public partial class NewPayMePage : PhoneApplicationPage {
-		
-		private EmailAddressChooserTask emailTask;	
-		
-		public List<EmailResult> contacts { get; private set; }
+
+        public ContactListViewModel contactList { get; private set; }
+
+		private EmailAddressChooserTask emailTask;
 		
         public NewPayMePage() {
             InitializeComponent();
-			this.EmailList.DataContext = this;
-			
-			contacts = new List<EmailResult>();
+
+            contactList = new ContactListViewModel();
+            this.EmailList.DataContext = contactList;
+
 			emailTask = new EmailAddressChooserTask();
     		emailTask.Completed += new EventHandler<EmailResult>(emailTask_Completed);
-        }
-		
-		public List<EmailResult> Contacts {
-            get {
-                if (contacts == null)
-                    contacts = new List<EmailResult>();
-
-                return contacts;
-            }
         }
 		
 		private void btnContacts_Click(object sender, RoutedEventArgs e) {
@@ -48,8 +43,8 @@ namespace PayMe {
 		
 		void emailTask_Completed(object sender, EmailResult contact) {
 			if (contact.TaskResult == TaskResult.OK) {
-				if (!contacts.Contains(contact)) {
-					contacts.Add(contact);
+                if (!contactList.existsContact(contact)) {
+                    contactList.addContact(contact);
 				}				
 			}
 		}
@@ -93,12 +88,13 @@ namespace PayMe {
 		}
 		
 		private void CreatePayMe(object sender, RoutedEventArgs e) {
-			if (this.TitleInput.Text != String.Empty &&
-				this.AmountInput.Text != String.Empty) {
-					App.PayMeList.PayMes.Add(new PayMeItemViewModel(this.TitleInput.Text, 10, Convert.ToDouble(this.AmountInput.Text.Replace(".",","))));
+            if (this.TitleInput.Text != String.Empty && this.TitleInput.Text != "Title"
+                && this.AmountInput.Text != String.Empty && this.AmountInput.Text != "Amount"
+                && contactList.Contacts.Count > 0) {
+					App.PayMeList.PayMes.Insert(0, new PayMeItemModel(this.TitleInput.Text, contactList.Contacts.Count, Convert.ToDouble(this.AmountInput.Text.Replace(".",","))));
+                    App.PayMeList.SaveToDisk();
 					NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
 			}
-		}
-		
+		}		
     }
 }
