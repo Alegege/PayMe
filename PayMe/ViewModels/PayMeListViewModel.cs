@@ -12,15 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Xml;
+using System.IO.IsolatedStorage;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace PayMe {
-	
-    public class PayMeListViewModel  {
+
+    public class PayMeListViewModel {
 		
-		public ObservableCollection<PayMeItemViewModel> PayMes { get; private set; }
+		public ObservableCollection<PayMeItemModel> PayMes { get; private set; }
 		
         public PayMeListViewModel() {
-            this.PayMes = new ObservableCollection<PayMeItemViewModel>();
+            this.PayMes = new ObservableCollection<PayMeItemModel>();
         }
 
         public bool IsDataLoaded {
@@ -28,17 +32,52 @@ namespace PayMe {
             private set;
         }
 
+        public void AddPayMe(PayMeItemModel payMe) {
+            if (PayMes == null) {
+                PayMes = new ObservableCollection<PayMeItemModel>();
+            }
+
+            PayMes.Insert(0, payMe);
+        }
+
         /// <summary>
         /// Crea y agrega algunos objetos ItemViewModel a la colección Items.
         /// </summary>
         public void LoadData() {
-            // Datos de ejemplo; reemplazar por datos reales
-            this.PayMes.Add(new PayMeItemViewModel("Cumpleaños Sergi", 17, 78.12, 12, DateTime.Parse("20/04/2012")));
-            this.PayMes.Add(new PayMeItemViewModel("Barbacoa casa Pau", 28, 125.66, 3, DateTime.Parse("13/02/2012")));
-			this.PayMes.Add(new PayMeItemViewModel("Regalo Jordi", 22, 65.01, 21, DateTime.Parse("12/04/2012")));
-			this.PayMes.Add(new PayMeItemViewModel("Karts despedida Antonio", 11, 98, 5, DateTime.Parse("23/04/2012")));
+            try {
+                using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) {
+                    using (IsolatedStorageFileStream stream = myIsolatedStorage.OpenFile("PayMes.xml", FileMode.Open, FileAccess.Read)) {
+                        XmlSerializer serializer = new XmlSerializer(typeof(List<PayMeItemModel>));
+                        List<PayMeItemModel> data = (List<PayMeItemModel>)serializer.Deserialize(stream);
+                        this.PayMes.Clear();
 
-            this.IsDataLoaded = true;
+                        foreach (PayMeItemModel p in data) {
+                            this.AddPayMe(p);
+                        }
+
+                        this.IsDataLoaded = true;
+                    }
+                }
+            }
+            catch {
+                System.Diagnostics.Debug.WriteLine("Exception while loading stops from IsolatedStorage.");
+            }
+        }
+
+        public void SaveToDisk() {
+            if (PayMes.Count > 0) {
+                XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
+                xmlWriterSettings.Indent = true;
+
+                using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) {
+                    using (IsolatedStorageFileStream stream = myIsolatedStorage.OpenFile("PayMes.xml", FileMode.Create, FileAccess.Write)) {
+                        XmlSerializer serializer = new XmlSerializer(typeof(List<PayMeItemModel>));
+                        using (XmlWriter xmlWriter = XmlWriter.Create(stream, xmlWriterSettings)) {
+                            serializer.Serialize(xmlWriter, new List<PayMeItemModel>(this.PayMes));
+                        }
+                    }
+                }
+            }
         }
     }
 }
