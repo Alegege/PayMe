@@ -93,6 +93,13 @@ namespace PayMe {
                 && contactList.Contacts.Count > 0) {
 					App.PayMeList.PayMes.Insert(0, new PayMeItemModel(this.TitleInput.Text, contactList.Contacts.Count, Convert.ToDouble(this.AmountInput.Text.Replace(".",","))));
                     App.PayMeList.SaveToDisk();
+					
+					EmailComposeTask emailComposer = new EmailComposeTask();
+					emailComposer.Subject = "Subject de prueba";
+					emailComposer.Body = "Body de prueba";
+					emailComposer.To = contactList.Contacts[0].Email + ";" + contactList.Contacts[0].Email;
+					emailComposer.Show();				
+
 					NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
 			}
 		}		

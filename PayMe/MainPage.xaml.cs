@@ -38,5 +38,19 @@ namespace PayMe
 
             NavigationService.Navigate(new Uri("/NewPayMePage.xaml", UriKind.RelativeOrAbsolute));
 		}
+		
+		private void MenuItem_DeletePayMeClick(object sender, RoutedEventArgs e) {
+            MenuItem itm = sender as MenuItem;
+
+            //App.ClockViewModel.remove(itm.CommandParameter.ToString());
+        }
+		
+		protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e) {
+
+            for (int i = 0; i < 50; i++)
+            {
+                base.OnBackKeyPress(e);
+            }
+		}
     }
 }

@@ -14,8 +14,8 @@
 	FontSize="{StaticResource PhoneFontSizeNormal}"
 	Foreground="{StaticResource PhoneForegroundBrush}"
 	SupportedOrientations="Portrait" Orientation="Portrait"
-	ApplicationBar = "{StaticResource PivotApplicationBar}"
 	toolkit:TiltEffect.IsTiltEnabled="True"
+	ApplicationBar = "{StaticResource PivotApplicationBar}"
 	>
 	
 	<phone:PhoneApplicationPage.Resources>
@@ -74,38 +74,55 @@
 		</Style>
 	</phone:PhoneApplicationPage.Resources>
 	
-	<!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
 	<Grid x:Name="LayoutRoot">
 		<Grid.Background>
 			<ImageBrush Stretch="Fill" ImageSource="PanoramaBackground.png"/>
 		</Grid.Background>
 
 		<!--Control Panorama-->
+		<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,0" Height="116" VerticalAlignment="Top">
+			<TextBlock x:Name="ApplicationTitle" Text="PayMe" Style="{StaticResource PhoneTextNormalStyle}"/>
+			<TextBlock x:Name="PageTitle" Text="my PayMe's" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+		</StackPanel>
+		<Grid x:Name="ContentPanel" Margin="12,161,12,-40">
+			<Grid Margin="0,0,0,40">
+		<!--
 		<controls:Pivot Title="PayMe">
 			<controls:PivotItem Header="all">
 				<Grid>
-<!--Lista de línea doble con marcador de posición de imagen y ajuste de texto-->
-					<ListBox x:Name="payMeList" ItemsSource="{Binding PayMes}" Margin="0,0,8,8">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Background="{StaticResource PhoneAccentBrush}" Margin="0,0,0,17" Height="105" Width="390" Tap="PayMe_Tap">
-									<TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-									<TextBlock Text="{Binding PaidParticipantsValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSmallStyle}" />
-									<TextBlock Text="{Binding CreationDateValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
+		-->
+				<ListBox x:Name="payMeList" ItemsSource="{Binding PayMes}" Margin="0,0,8,8">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel Background="{StaticResource PhoneAccentBrush}" Margin="0,0,0,17" Height="105" Width="390" Tap="PayMe_Tap">
+								<TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+								<TextBlock Text="{Binding PaidParticipantsValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSmallStyle}" />
+								<TextBlock Text="{Binding CreationDateValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+								<toolkit:ContextMenuService.ContextMenu>
+									<toolkit:ContextMenu>
+										<toolkit:MenuItem  
+											CommandParameter="{Binding Title}"
+											Header="Remove City"  
+											Click="MenuItem_DeletePayMeClick"
+											/>
+									</toolkit:ContextMenu>
+								</toolkit:ContextMenuService.ContextMenu>
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+		<!--
 				</Grid>
 			</controls:PivotItem>
 			<controls:PivotItem Header="paid">
-				<Grid>
-<!--Lista de línea doble con marcador de posición de imagen y ajuste de texto-->
-				</Grid>
+				<Grid/>
 			</controls:PivotItem>
 			<controls:PivotItem Header="overdue">
 				<Grid/>
 			</controls:PivotItem>
 		</controls:Pivot>
+		-->
+			</Grid>
+		</Grid>
 	</Grid>
 </phone:PhoneApplicationPage>

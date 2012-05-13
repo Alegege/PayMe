@@ -169,5 +169,9 @@ namespace PayMe
             MessageBox.Show("Button 3 works!");
             //Do work for your application here.
         }
+		
+		public void closeApplication() {
+			this.Application_Closing(new Object(), new ClosingEventArgs());
+		}
     }
 }

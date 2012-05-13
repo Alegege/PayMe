@@ -9,8 +9,8 @@
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
 	x:Class="PayMe.NewPayMePage"
 	Orientation="Portrait"
-	ApplicationBar = "{StaticResource NewPayMeApplicationBar}"
 	>
+	<!-- ApplicationBar = "{StaticResource NewPayMeApplicationBar}" -->
 
 	<phone:PhoneApplicationPage.Resources>
 		<SolidColorBrush x:Key="RoudedBorderBrush" Color="White"/>

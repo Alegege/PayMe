@@ -14,22 +14,22 @@
 	
 	<Application.Resources>
 		<shell:ApplicationBar x:Key="PivotApplicationBar" IsVisible="True" IsMenuEnabled="True" Mode="Default">
-			<shell:ApplicationBarIconButton IconUri="/icons/appbar.add.rest.png" IsEnabled="True" Text="new" Click="newButton_Click"/>
-			<shell:ApplicationBarIconButton IconUri="/icons/appbar.feature.settings.rest.png" IsEnabled="True" Text="settings" Click="settingsButton_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/resources/appbarIcons/add.png" IsEnabled="True" Text="new" Click="newButton_Click"/>
+            <!--<shell:ApplicationBarIconButton IconUri="/resources/appbarIcons/settings.png" IsEnabled="True" Text="settings" Click="settingsButton_Click"/>-->
 			<shell:ApplicationBar.MenuItems>
 				<shell:ApplicationBarMenuItem IsEnabled="True" Text="about" Click="aboutMenuItem_Click"/>
 			</shell:ApplicationBar.MenuItems>
 		</shell:ApplicationBar>
 		<shell:ApplicationBar x:Key="NewPayMeApplicationBar" IsVisible="True" IsMenuEnabled="True" Mode="Default">
-			<shell:ApplicationBarIconButton IconUri="/icons/appbar.add.rest.png" IsEnabled="False" Text="new" Click="newButton_Click"/>
-			<shell:ApplicationBarIconButton IconUri="/icons/appbar.feature.settings.rest.png" IsEnabled="True" Text="settings" Click="settingsButton_Click"/>
+            <shell:ApplicationBarIconButton IconUri="resources/appbarIcons/add.png" IsEnabled="False" Text="new" Click="newButton_Click"/>
+            <!--<shell:ApplicationBarIconButton IconUri="resources/appbarIcons/settings.png" IsEnabled="True" Text="settings" Click="settingsButton_Click"/>-->
 			<shell:ApplicationBar.MenuItems>
 				<shell:ApplicationBarMenuItem IsEnabled="True" Text="about" Click="aboutMenuItem_Click"/>
 			</shell:ApplicationBar.MenuItems>
 		</shell:ApplicationBar>
 		<shell:ApplicationBar x:Key="SettingsApplicationBar" IsVisible="True" IsMenuEnabled="True" Mode="Default">
-			<shell:ApplicationBarIconButton IconUri="/icons/appbar.add.rest.png" IsEnabled="True" Text="new" Click="newButton_Click"/>
-			<shell:ApplicationBarIconButton IconUri="/icons/appbar.feature.settings.rest.png" IsEnabled="False" Text="settings" Click="settingsButton_Click"/>
+            <shell:ApplicationBarIconButton IconUri="resources/appbarIcons/add.png" IsEnabled="True" Text="new" Click="newButton_Click"/>
+            <!--<shell:ApplicationBarIconButton IconUri="resources/appbarIcons/settings.png" IsEnabled="False" Text="settings" Click="settingsButton_Click"/>-->
 			<shell:ApplicationBar.MenuItems>
 				<shell:ApplicationBarMenuItem IsEnabled="True" Text="about" Click="aboutMenuItem_Click"/>
 			</shell:ApplicationBar.MenuItems>
