@@ -35,22 +35,16 @@ namespace PayMe
         }
 		
 		public void PayMe_Tap(object sender, System.Windows.Input.GestureEventArgs e) {
+			StackPanel stack = sender as StackPanel;
+            TextBlock CreationDateTB = stack.FindName("CreationDateTicksTextBlock") as TextBlock;
 
-            NavigationService.Navigate(new Uri("/NewPayMePage.xaml", UriKind.RelativeOrAbsolute));
+            NavigationService.Navigate(new Uri("/ViewPayMe.xaml?creationDateTicks=" + CreationDateTB.Text, UriKind.RelativeOrAbsolute));
 		}
 		
 		private void MenuItem_DeletePayMeClick(object sender, RoutedEventArgs e) {
             MenuItem itm = sender as MenuItem;
 
-            //App.ClockViewModel.remove(itm.CommandParameter.ToString());
+            App.PayMeList.RemovePayMe((DateTime)itm.CommandParameter);
         }
-		
-		protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e) {
-
-            for (int i = 0; i < 50; i++)
-            {
-                base.OnBackKeyPress(e);
-            }
-		}
     }
 }

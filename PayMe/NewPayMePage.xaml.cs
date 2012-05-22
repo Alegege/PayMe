@@ -15,18 +15,19 @@ using Microsoft.Phone.Tasks;
 using System.Xml.Serialization;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Text.RegularExpressions;
 
 namespace PayMe {
     public partial class NewPayMePage : PhoneApplicationPage {
 
-        public ContactListViewModel contactList { get; private set; }
+        public ParticipantListViewModel contactList { get; private set; }
 
 		private EmailAddressChooserTask emailTask;
 		
         public NewPayMePage() {
             InitializeComponent();
 
-            contactList = new ContactListViewModel();
+            contactList = new ParticipantListViewModel();
             this.EmailList.DataContext = contactList;
 
 			emailTask = new EmailAddressChooserTask();
@@ -43,8 +44,8 @@ namespace PayMe {
 		
 		void emailTask_Completed(object sender, EmailResult contact) {
 			if (contact.TaskResult == TaskResult.OK) {
-                if (!contactList.existsContact(contact)) {
-                    contactList.addContact(contact);
+                if (!contactList.existsParticipant(contact)) {
+                    contactList.addParticipant(contact);
 				}				
 			}
 		}
@@ -87,21 +88,53 @@ namespace PayMe {
 			}
 		}
 		
-		private void CreatePayMe(object sender, RoutedEventArgs e) {
-            if (this.TitleInput.Text != String.Empty && this.TitleInput.Text != "Title"
-                && this.AmountInput.Text != String.Empty && this.AmountInput.Text != "Amount"
-                && contactList.Contacts.Count > 0) {
-					App.PayMeList.PayMes.Insert(0, new PayMeItemModel(this.TitleInput.Text, contactList.Contacts.Count, Convert.ToDouble(this.AmountInput.Text.Replace(".",","))));
-                    App.PayMeList.SaveToDisk();
-					
-					EmailComposeTask emailComposer = new EmailComposeTask();
-					emailComposer.Subject = "Subject de prueba";
-					emailComposer.Body = "Body de prueba";
-					emailComposer.To = contactList.Contacts[0].Email + ";" + contactList.Contacts[0].Email;
-					emailComposer.Show();				
+		private void CreatePayMe(object sender, RoutedEventArgs e) {		
+			if (validateNewPayMe()) {
+				string title = this.TitleInput.Text;
+				string amount = this.AmountInput.Text;
 
-					NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
+				App.PayMeList.AddPayMe(new PayMeItemModel(title, 
+														contactList.ParticipantList, 
+														Convert.ToDouble(amount.Replace(".",","))), 
+									ApplicationConstants.insertTrue);
+				App.PayMeList.SaveToDisk();
+				
+				EmailComposeTask emailComposer = new EmailComposeTask();
+				emailComposer.Subject = "Subject de prueba";
+				emailComposer.Body = "Body de prueba";
+				emailComposer.To = contactList.ParticipantList[0].Email + ";" + contactList.ParticipantList[0].Email;
+				emailComposer.Show();
+
+				NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
 			}
-		}		
+		}
+		
+		private bool validateNewPayMe() {
+			bool result = true;
+			
+			if (ApplicationConstants.placeholderColor.Equals((TitleInput.Foreground as SolidColorBrush).Color)) {
+				MessageBox.Show("Title is required");
+				return false;
+            } else if (ApplicationConstants.placeholderColor.Equals((AmountInput.Foreground as SolidColorBrush).Color)) {
+                MessageBox.Show("Amount is required");
+                return false;
+            } else if (contactList.ParticipantList.Count < 2) {
+                MessageBox.Show("At least two participants are required");
+                return false;
+            }
+			
+			return result;
+		}
+
+		private void TextInputAmount_KeyDown(object sender, KeyEventArgs e) {
+			string amount = this.AmountInput.Text;
+			
+			if (Regex.IsMatch(amount, "^\\d*\\.\\d{2}$") || 
+				(Regex.IsMatch(amount, "^$") && e.PlatformKeyCode.ToString().Equals("190")) ||
+				(amount.Contains(".") && e.PlatformKeyCode.ToString().Equals("190")) ||
+				(amount.Equals("0") && !e.PlatformKeyCode.ToString().Equals("190"))) {
+				e.Handled = true;
+			}
+		}
     }
 }

@@ -32,12 +32,45 @@ namespace PayMe {
             private set;
         }
 
-        public void AddPayMe(PayMeItemModel payMe) {
+        public void AddPayMe(PayMeItemModel payMe, bool insert) {
             if (PayMes == null) {
                 PayMes = new ObservableCollection<PayMeItemModel>();
             }
 
-            PayMes.Insert(0, payMe);
+			if (insert) {
+				PayMes.Insert(0, payMe);
+			} else {
+				PayMes.Add(payMe);
+			}
+            
+        }
+		
+		public void RemovePayMe(DateTime creationDate) {
+			if (creationDate != null) {
+				for (int i = 0; i < PayMes.Count; i++) {
+                    if (DateTime.Compare(creationDate,PayMes[i].CreationDate) == 0)
+                    {
+						PayMes.RemoveAt(i);
+					}
+				}
+			}
+		}
+
+        public PayMeItemModel GetPayMe(long creationDateTicks)
+        {
+            if (creationDateTicks > 0)
+            {
+                foreach (PayMeItemModel payMe in PayMes)
+
+                {
+                    if (creationDateTicks == payMe.CreationDate.Ticks)
+                    {
+                        return payMe;
+                    }
+                }
+            }
+
+            return new PayMeItemModel();
         }
 
         /// <summary>
@@ -52,32 +85,30 @@ namespace PayMe {
                         this.PayMes.Clear();
 
                         foreach (PayMeItemModel p in data) {
-                            this.AddPayMe(p);
+                            this.AddPayMe(p, ApplicationConstants.insertFalse);
                         }
 
                         this.IsDataLoaded = true;
                     }
                 }
             }
-            catch {
+            catch (Exception e) {
                 System.Diagnostics.Debug.WriteLine("Exception while loading stops from IsolatedStorage.");
             }
         }
 
         public void SaveToDisk() {
-            if (PayMes.Count > 0) {
-                XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Indent = true;
+            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
+            xmlWriterSettings.Indent = true;
 
-                using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) {
-                    using (IsolatedStorageFileStream stream = myIsolatedStorage.OpenFile("PayMes.xml", FileMode.Create, FileAccess.Write)) {
-                        XmlSerializer serializer = new XmlSerializer(typeof(List<PayMeItemModel>));
-                        using (XmlWriter xmlWriter = XmlWriter.Create(stream, xmlWriterSettings)) {
-                            serializer.Serialize(xmlWriter, new List<PayMeItemModel>(this.PayMes));
-                        }
+            using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) {
+                using (IsolatedStorageFileStream stream = myIsolatedStorage.OpenFile("PayMes.xml", FileMode.Create, FileAccess.Write)) {
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<PayMeItemModel>));
+                    using (XmlWriter xmlWriter = XmlWriter.Create(stream, xmlWriterSettings)) {
+                        serializer.Serialize(xmlWriter, new List<PayMeItemModel>(this.PayMes));
                     }
                 }
-            }
+            }            
         }
     }
 }

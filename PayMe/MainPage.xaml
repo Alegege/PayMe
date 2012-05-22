@@ -94,15 +94,17 @@
 				<ListBox x:Name="payMeList" ItemsSource="{Binding PayMes}" Margin="0,0,8,8">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<StackPanel Background="{StaticResource PhoneAccentBrush}" Margin="0,0,0,17" Height="105" Width="390" Tap="PayMe_Tap">
+							<StackPanel Background="{StaticResource PhoneAccentBrush}" Margin="0,0,0,17" Height="Auto" Width="390" Tap="PayMe_Tap">
 								<TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
 								<TextBlock Text="{Binding PaidParticipantsValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSmallStyle}" />
 								<TextBlock Text="{Binding CreationDateValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+								<TextBlock x:Name="CreationDateTicksTextBlock" Text="{Binding CreationDateTicks}" TextWrapping="Wrap" Margin="12,0,12,0" Visibility="Collapsed" />
+                                <!--<TextBlock Text="{Binding ContactEmails}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />-->
 								<toolkit:ContextMenuService.ContextMenu>
 									<toolkit:ContextMenu>
 										<toolkit:MenuItem  
-											CommandParameter="{Binding Title}"
-											Header="Remove City"  
+											CommandParameter="{Binding CreationDate}"
+											Header="Remove PayMe"  
 											Click="MenuItem_DeletePayMeClick"
 											/>
 									</toolkit:ContextMenu>

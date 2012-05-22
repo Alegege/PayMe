@@ -90,6 +90,7 @@ namespace PayMe
         // Este código no se ejecutará cuando se cierre la aplicación
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            payMeList.SaveToDisk();
         }
 
         // Código que se ejecuta al cerrar la aplicación (p. ej., cuando el usuario pulsa Atrás)
@@ -114,6 +115,7 @@ namespace PayMe
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Se ha producido una excepción no controlada; interrumpir depurador
+                Console.WriteLine(e.ToString());
                 System.Diagnostics.Debugger.Break();
             }
         }

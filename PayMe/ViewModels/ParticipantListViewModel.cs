@@ -15,23 +15,26 @@ using System.IO;
 using Microsoft.Phone.UserData;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using PayMe.Models;
 
 namespace PayMe {
-    public class ContactListViewModel {
+    public class ParticipantListViewModel {
 
-        public ObservableCollection<EmailResult> Contacts { get; private set; }
+        public ObservableCollection<ParticipantItemModel> ParticipantList { get; private set; }
 
-        public ContactListViewModel() {
-            this.Contacts = new ObservableCollection<EmailResult>();
+        public ParticipantListViewModel() {
+            this.ParticipantList = new ObservableCollection<ParticipantItemModel>();
         }
 
-        public void addContact(EmailResult contact) {
-            Contacts.Add(contact);
+        public void addParticipant(EmailResult contact) {
+            ParticipantList.Add(new ParticipantItemModel(contact.Email));
         }
 
-        public bool existsContact(EmailResult newContact) {
-            foreach (EmailResult contact in Contacts) {
-                if (contact.Email.Equals(newContact.Email)) {
+        public bool existsParticipant(EmailResult newContact)
+        {
+            foreach (ParticipantItemModel participant in ParticipantList)
+            {
+                if (participant.Email.Equals(newContact.Email)) {
                     return true;
                 }
             }
@@ -48,7 +51,7 @@ namespace PayMe {
                     {
                         XmlSerializer serializer = new XmlSerializer(typeof(List<Contacts>));
                         List<Contacts> data = (List<Contacts>)serializer.Deserialize(stream);
-                        this.Contacts.Clear();
+                        this.ParticipantList.Clear();
 
                     }
                 }

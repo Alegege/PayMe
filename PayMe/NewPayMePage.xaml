@@ -84,7 +84,7 @@
 		</Grid.Background>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
+			<RowDefinition/>
 		</Grid.RowDefinitions>
 		
 		<!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
@@ -101,7 +101,7 @@
 					LostFocus="TextInputTitle_LostFocus"/>
 				<TextBox x:Name="AmountInput" TextWrapping="Wrap" Text="Amount" Foreground="Gray"
 					GotFocus="TextInputAmount_GotFocus"
-					LostFocus="TextInputAmount_LostFocus" InputScope="Number"/>
+					LostFocus="TextInputAmount_LostFocus" InputScope="Number" KeyDown="TextInputAmount_KeyDown"/>
                 <TextBlock x:Name="ParticipantsLabel" TextWrapping="Wrap" Margin="11,0,0,0" Height="34"><Run Text="Participants"/><LineBreak/><Run/></TextBlock>
 				
 				<ListBox x:Name="EmailList" ItemsSource="{Binding Contacts}">
@@ -128,7 +128,7 @@
 						</Image.RenderTransform>
 					</Image>
 				</Button>
-				<Button x:Name="CreatePayMeButton" Content="Create" Height="72" 
+				<Button x:Name="CreatePayMeButton" Content="create" Height="72" 
 					Margin="140,0,136,0" Click="CreatePayMe" />
 			</StackPanel>
 		</Grid>
