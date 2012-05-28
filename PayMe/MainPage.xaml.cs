@@ -20,18 +20,23 @@ namespace PayMe
         // Constructor
         public MainPage()
         {
-            InitializeComponent();			
+            InitializeComponent();
             this.payMeList.DataContext = App.PayMeList;
-            this.Loaded +=new RoutedEventHandler(MainPage_Loaded);		
+            //this.Loaded +=new RoutedEventHandler(MainPage_Loaded);		
         }
 		
         // Cargar datos para los elementos de ViewModel
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        //private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    if (!App.PayMeList.IsDataLoaded)
+        //    {
+        //        App.PayMeList.LoadData();
+        //    }
+        //}
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!App.PayMeList.IsDataLoaded)
-            {
-                App.PayMeList.LoadData();
-            }
+            App.PayMeList.LoadData();
         }
 		
 		public void PayMe_Tap(object sender, System.Windows.Input.GestureEventArgs e) {

@@ -19,17 +19,47 @@ using System.IO;
 
 namespace PayMe {
 
-    public class PayMeListViewModel {
-		
-		public ObservableCollection<PayMeItemModel> PayMes { get; private set; }
+    public class PayMeListViewModel : INotifyPropertyChanged
+    {
+
+        private ObservableCollection<PayMeItemModel> _PayMes = new ObservableCollection<PayMeItemModel>();
+
+        // Declare the PropertyChanged event
+        public event PropertyChangedEventHandler PropertyChanged;
 		
         public PayMeListViewModel() {
             this.PayMes = new ObservableCollection<PayMeItemModel>();
         }
 
+        public ObservableCollection<PayMeItemModel> PayMes
+        {
+            get
+            {
+                return _PayMes;
+            }
+            set
+            {
+                if (value != _PayMes)
+                {
+                    _PayMes = value;
+                    NotifyPropertyChanged("PayMes");
+                }
+            }
+        }
+
         public bool IsDataLoaded {
             get;
             private set;
+        }
+
+        // NotifyPropertyChanged will raise the PropertyChanged event passing the
+        // source property that is being updated.
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         public void AddPayMe(PayMeItemModel payMe, bool insert) {
@@ -80,8 +110,8 @@ namespace PayMe {
             try {
                 using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) {
                     using (IsolatedStorageFileStream stream = myIsolatedStorage.OpenFile("PayMes.xml", FileMode.Open, FileAccess.Read)) {
-                        XmlSerializer serializer = new XmlSerializer(typeof(List<PayMeItemModel>));
-                        List<PayMeItemModel> data = (List<PayMeItemModel>)serializer.Deserialize(stream);
+                        XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<PayMeItemModel>));
+                        ObservableCollection<PayMeItemModel> data = (ObservableCollection<PayMeItemModel>)serializer.Deserialize(stream);
                         this.PayMes.Clear();
 
                         foreach (PayMeItemModel p in data) {
@@ -103,9 +133,9 @@ namespace PayMe {
 
             using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) {
                 using (IsolatedStorageFileStream stream = myIsolatedStorage.OpenFile("PayMes.xml", FileMode.Create, FileAccess.Write)) {
-                    XmlSerializer serializer = new XmlSerializer(typeof(List<PayMeItemModel>));
+                    XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<PayMeItemModel>));
                     using (XmlWriter xmlWriter = XmlWriter.Create(stream, xmlWriterSettings)) {
-                        serializer.Serialize(xmlWriter, new List<PayMeItemModel>(this.PayMes));
+                        serializer.Serialize(xmlWriter, this.PayMes);
                     }
                 }
             }            

@@ -75,17 +75,13 @@
 	</phone:PhoneApplicationPage.Resources>
 	
 	<Grid x:Name="LayoutRoot">
-		<Grid.Background>
-			<ImageBrush Stretch="Fill" ImageSource="PanoramaBackground.png"/>
-		</Grid.Background>
 
 		<!--Control Panorama-->
 		<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,0" Height="116" VerticalAlignment="Top">
 			<TextBlock x:Name="ApplicationTitle" Text="PayMe" Style="{StaticResource PhoneTextNormalStyle}"/>
 			<TextBlock x:Name="PageTitle" Text="my PayMe's" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
 		</StackPanel>
-		<Grid x:Name="ContentPanel" Margin="12,161,12,-40">
-			<Grid Margin="0,0,0,40">
+		<Grid x:Name="ContentPanel" Margin="12,161,12,0">
 		<!--
 		<controls:Pivot Title="PayMe">
 			<controls:PivotItem Header="all">
@@ -94,11 +90,11 @@
 				<ListBox x:Name="payMeList" ItemsSource="{Binding PayMes}" Margin="0,0,8,8">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<StackPanel Background="{StaticResource PhoneAccentBrush}" Margin="0,0,0,17" Height="Auto" Width="390" Tap="PayMe_Tap">
+							<StackPanel Background="{StaticResource PhoneAccentBrush}"  Margin="0,0,0,17" Height="Auto" Width="400" Tap="PayMe_Tap">
 								<TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
 								<TextBlock Text="{Binding PaidParticipantsValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSmallStyle}" />
-								<TextBlock Text="{Binding CreationDateValue}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
-								<TextBlock x:Name="CreationDateTicksTextBlock" Text="{Binding CreationDateTicks}" TextWrapping="Wrap" Margin="12,0,12,0" Visibility="Collapsed" />
+                                <TextBlock Text="{Binding CreationDateValue}" TextWrapping="Wrap" Margin="12,0,12,12" Style="{StaticResource PhoneTextSmallStyle}" />
+								<TextBlock x:Name="CreationDateTicksTextBlock" Text="{Binding CreationDateTicks}" Visibility="Collapsed" />
                                 <!--<TextBlock Text="{Binding ContactEmails}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />-->
 								<toolkit:ContextMenuService.ContextMenu>
 									<toolkit:ContextMenu>
@@ -124,7 +120,6 @@
 			</controls:PivotItem>
 		</controls:Pivot>
 		-->
-			</Grid>
 		</Grid>
 	</Grid>
 </phone:PhoneApplicationPage>

@@ -12,12 +12,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Threading;
+using System.Globalization;
 
 namespace PayMe
 {
     public partial class App : Application
     {
-        private static PayMeListViewModel payMeList = null;
+        private static PayMeListViewModel _PayMeList = null;
 
         /// <summary>
         /// ViewModel estático que utilizan las vistas para enlazarse.
@@ -28,12 +30,12 @@ namespace PayMe
             get
             {
                 // Retrasar la creación del modelo de vista hasta que sea necesario
-                if (payMeList == null)
-                    payMeList = new PayMeListViewModel();
+                if (_PayMeList == null)
+                    _PayMeList = new PayMeListViewModel();
 
-                return payMeList;
+                return _PayMeList;
             }
-        }
+        }   
 
         /// <summary>
         /// Proporciona un fácil acceso al marco raíz de la aplicación de Windows Phone.
@@ -90,13 +92,13 @@ namespace PayMe
         // Este código no se ejecutará cuando se cierre la aplicación
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            payMeList.SaveToDisk();
+            _PayMeList.SaveToDisk();
         }
 
         // Código que se ejecuta al cerrar la aplicación (p. ej., cuando el usuario pulsa Atrás)
         // Este código no se ejecutará cuando se desactive la aplicación
         private void Application_Closing(object sender, ClosingEventArgs e) {
-            payMeList.SaveToDisk();
+            _PayMeList.SaveToDisk();
         }
 
         // Código que se ejecuta si se produce un error en una navegación

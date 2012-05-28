@@ -54,6 +54,7 @@
     <Reference Include="Microsoft.Phone.Controls" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -73,16 +74,17 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ParticipantItemModel.cs" />
     <Compile Include="Models\PayMeItemModel.cs" />
     <Compile Include="NewPayMePage.xaml.cs">
       <DependentUpon>NewPayMePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PhonePage1.xaml.cs">
-      <DependentUpon>PhonePage1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ContactListViewModel.cs" />
+    <Compile Include="ViewModels\ParticipantListViewModel.cs" />
     <Compile Include="ViewModels\PayMeListViewModel.cs" />
+    <Compile Include="ViewPayMe.xaml.cs">
+      <DependentUpon>ViewPayMe.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -104,7 +106,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PhonePage1.xaml">
+    <Page Include="ViewPayMe.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -120,15 +122,16 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="resources\images\icons\dark\appbar.add.rest.png" />
     <Content Include="resources\appbarIcons\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\appbarIcons\settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="resources\images\avatarAle.jpg" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="PanoramaBackground.png" />
+    <Resource Include="resources\images\icons\dark\appbar.add.rest.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

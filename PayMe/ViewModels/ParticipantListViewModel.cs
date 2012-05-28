@@ -16,23 +16,69 @@ using Microsoft.Phone.UserData;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using PayMe.Models;
+using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace PayMe {
-    public class ParticipantListViewModel {
+    public class ParticipantListViewModel : INotifyPropertyChanged
+    {
+        private ObservableCollection<ParticipantItemModel> _Participants = new ObservableCollection<ParticipantItemModel>();
 
-        public ObservableCollection<ParticipantItemModel> ParticipantList { get; private set; }
+        // Declare the PropertyChanged event
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ParticipantListViewModel() {
-            this.ParticipantList = new ObservableCollection<ParticipantItemModel>();
+            this._Participants = new ObservableCollection<ParticipantItemModel>();
         }
 
-        public void addParticipant(EmailResult contact) {
-            ParticipantList.Add(new ParticipantItemModel(contact.Email));
-        }
-
-        public bool existsParticipant(EmailResult newContact)
+        public ObservableCollection<ParticipantItemModel> Participants
         {
-            foreach (ParticipantItemModel participant in ParticipantList)
+            get
+            {
+                return _Participants;
+            }
+            set
+            {
+                if (value != _Participants)
+                {
+                    _Participants = value;
+                    NotifyPropertyChanged("Participants");
+                }
+            }
+        }
+
+        // NotifyPropertyChanged will raise the PropertyChanged event passing the
+        // source property that is being updated.
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public void AddParticipant(Contact contact, string email) {
+            Participants.Add(new ParticipantItemModel(contact, email));
+            NotifyPropertyChanged("Participants");
+        }
+
+        public void RemoveParticipant(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                for (int i = 0; i < _Participants.Count; i++)
+                {
+                    if (email.Equals(_Participants[i].Email))
+                    {
+                        _Participants.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
+        public bool ExistsParticipant(EmailResult newContact)
+        {
+            foreach (ParticipantItemModel participant in Participants)
             {
                 if (participant.Email.Equals(newContact.Email)) {
                     return true;
@@ -42,24 +88,19 @@ namespace PayMe {
             return false;
         }
 
-        public void LoadData() {
-            try
-            {
-                using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
-                {
-                    using (IsolatedStorageFileStream stream = myIsolatedStorage.OpenFile("Parades.xml", FileMode.Open))
-                    {
-                        XmlSerializer serializer = new XmlSerializer(typeof(List<Contacts>));
-                        List<Contacts> data = (List<Contacts>)serializer.Deserialize(stream);
-                        this.ParticipantList.Clear();
+        public int PaidParticipants()
+        {
+            int paidParticipants = 0;
 
-                    }
+            foreach (ParticipantItemModel participant in _Participants)
+            {
+                if (participant.Paid)
+                {
+                    paidParticipants++;
                 }
             }
-            catch
-            {
-                System.Diagnostics.Debug.WriteLine("Exception while loading stops from IsolatedStorage.");
-            }
+            
+            return paidParticipants;
         }
     }
 }

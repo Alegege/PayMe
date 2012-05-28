@@ -6,6 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
 	x:Class="PayMe.NewPayMePage"
 	Orientation="Portrait"
@@ -79,9 +80,6 @@
 
 	<!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
 	<Grid x:Name="LayoutRoot">
-		<Grid.Background>
-			<ImageBrush Stretch="Fill" ImageSource="PanoramaBackground.png"/>
-		</Grid.Background>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition/>
@@ -94,43 +92,62 @@
 		</StackPanel>
 
 		<!--ContentPanel: coloque aquí el contenido adicional-->
-		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-			<StackPanel Margin="0,0,0,8">
-				<TextBox x:Name="TitleInput" TextWrapping="Wrap" Text="Title" Foreground="Gray" 
-					GotFocus="TextInputTitle_GotFocus"
-					LostFocus="TextInputTitle_LostFocus"/>
-				<TextBox x:Name="AmountInput" TextWrapping="Wrap" Text="Amount" Foreground="Gray"
-					GotFocus="TextInputAmount_GotFocus"
-					LostFocus="TextInputAmount_LostFocus" InputScope="Number" KeyDown="TextInputAmount_KeyDown"/>
-                <TextBlock x:Name="ParticipantsLabel" TextWrapping="Wrap" Margin="11,0,0,0" Height="34"><Run Text="Participants"/><LineBreak/><Run/></TextBlock>
-				
-				<ListBox x:Name="EmailList" ItemsSource="{Binding Contacts}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Email}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-				
-				<Button x:Name="AddParticipantButton" HorizontalAlignment="Center" 
-					Width="70" Height="70" Foreground="White" 
-					BorderBrush="{StaticResource RoudedBorderBrush}" 
-					Style="{StaticResource RoundedButtonStyle}" 
-					VerticalAlignment="Center" UseLayoutRounding="True"
-					Click="btnContacts_Click">
-					<Image x:Name="AddParticipantImage" 
-						Source="resources/images/icons/dark/appbar.add.rest.png" 
-						Width="22" RenderTransformOrigin="3.114,-0.188" Height="22">
-						<Image.RenderTransform>
-							<CompositeTransform TranslateX="-1"/>
-						</Image.RenderTransform>
-					</Image>
-				</Button>
-				<Button x:Name="CreatePayMeButton" Content="create" Height="72" 
-					Margin="140,0,136,0" Click="CreatePayMe" />
-			</StackPanel>
-		</Grid>
+		<ScrollViewer x:Name="Scroll" Grid.Row="1" Margin="0,0,0,0" >
+			<Grid x:Name="ContentPanel" Margin="12,0,12,0">
+				<StackPanel Margin="0,0,0,100">
+					<TextBox x:Name="TitleInput" TextWrapping="Wrap" Text="Title" Foreground="Gray" 
+						GotFocus="TextInputTitle_GotFocus"
+						LostFocus="TextInputTitle_LostFocus"/>
+					<TextBox x:Name="AmountInput" TextWrapping="Wrap" Text="Amount" Foreground="Gray"
+						GotFocus="TextInputAmount_GotFocus"
+						LostFocus="TextInputAmount_LostFocus" InputScope="Number" KeyDown="TextInputAmount_KeyDown"/>
+	                <TextBlock x:Name="ParticipantsLabel" TextWrapping="Wrap" Margin="11,0,0,0" Height="34"><Run Text="Participants"/><LineBreak/><Run/></TextBlock>
+
+	                <ListBox x:Name="Participants" ItemsSource="{Binding Participants}" Margin="11,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+	                    <ListBox.ItemTemplate>
+	                        <DataTemplate>
+	                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <Image Source="{Binding ContactPictureSource}" Height="60"/>
+									<StackPanel Orientation="Vertical">
+		                                <TextBlock Text="{Binding DisplayName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+										<TextBlock Text="{Binding Email}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSmallStyle}" />
+                                        <toolkit:ContextMenuService.ContextMenu>
+                                            <toolkit:ContextMenu>
+                                                <toolkit:MenuItem  
+											        CommandParameter="{Binding Email}"
+											        Header="Remove Participant"  
+											        Click="MenuItem_DeleteParticipantClick"
+											        />
+                                            </toolkit:ContextMenu>
+                                        </toolkit:ContextMenuService.ContextMenu>
+                                    </StackPanel>
+	                            </StackPanel>
+	                        </DataTemplate>
+	                    </ListBox.ItemTemplate>
+	                </ListBox>
+					<!--
+					<Button x:Name="AddParticipantButton" HorizontalAlignment="Center" 
+						Width="70" Height="70" Foreground="White" 
+						BorderBrush="{StaticResource RoudedBorderBrush}" 
+						Style="{StaticResource RoundedButtonStyle}" 
+						VerticalAlignment="Center" UseLayoutRounding="True"
+						Click="btnContacts_Click">
+						<Image x:Name="AddParticipantImage" 
+							Source="resources/images/icons/dark/appbar.add.rest.png" 
+							Width="22" RenderTransformOrigin="3.114,-0.188" Height="22">
+							<Image.RenderTransform>
+								<CompositeTransform TranslateX="-1"/>
+							</Image.RenderTransform>
+						</Image>
+					</Button>
+					-->
+	                <Button x:Name="NewAddParticipantButton" Click="btnContacts_Click" 
+							Content="add participant" FontSize="21.333" />
+					<Button x:Name="CreatePayMeButton" Content="create PayMe" Height="82" 
+						Margin="103,0" Click="CreatePayMe" Width="250" FontSize="29.333" />
+					
+				</StackPanel>
+			</Grid>
+		</ScrollViewer>
 	</Grid>
 </phone:PhoneApplicationPage>

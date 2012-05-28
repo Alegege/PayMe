@@ -16,22 +16,37 @@ using System.Xml.Serialization;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Text.RegularExpressions;
+using Microsoft.Phone.UserData;
+using System.Linq;
+
 
 namespace PayMe {
     public partial class NewPayMePage : PhoneApplicationPage {
 
-        public ParticipantListViewModel contactList { get; private set; }
+        private ParticipantListViewModel _ParticipantList;
 
 		private EmailAddressChooserTask emailTask;
 		
         public NewPayMePage() {
             InitializeComponent();
 
-            contactList = new ParticipantListViewModel();
-            this.EmailList.DataContext = contactList;
+            _ParticipantList = new ParticipantListViewModel();
+            this.Participants.DataContext = _ParticipantList;
 
 			emailTask = new EmailAddressChooserTask();
     		emailTask.Completed += new EventHandler<EmailResult>(emailTask_Completed);
+        }
+
+        public ParticipantListViewModel ParticipantList
+        {
+            get
+            {
+                // Retrasar la creación del modelo de vista hasta que sea necesario
+                if (_ParticipantList == null)
+                    _ParticipantList = new ParticipantListViewModel();
+
+                return _ParticipantList;
+            }
         }
 		
 		private void btnContacts_Click(object sender, RoutedEventArgs e) {
@@ -44,11 +59,66 @@ namespace PayMe {
 		
 		void emailTask_Completed(object sender, EmailResult contact) {
 			if (contact.TaskResult == TaskResult.OK) {
-                if (!contactList.existsParticipant(contact)) {
-                    contactList.addParticipant(contact);
+                if (!_ParticipantList.ExistsParticipant(contact)) {
+                    
+                    Contacts contacts = new Contacts();
+                    contacts.SearchCompleted += new EventHandler<ContactsSearchEventArgs>(contacts_SearchCompleted);
+                    contacts.SearchAsync(contact.DisplayName, FilterKind.DisplayName, contact.Email);
 				}				
 			}
 		}
+
+        void contacts_SearchCompleted(object sender, ContactsSearchEventArgs e)
+        {
+            string emailSelected = e.State.ToString();
+            Contact contact = null;
+
+            foreach (var result in e.Results)
+            {
+                foreach (ContactEmailAddress contactEmail in result.EmailAddresses)
+                {
+                    if (emailSelected.Equals(contactEmail.EmailAddress) && e.Filter.Equals(result.DisplayName))
+                    {
+                        contact = result;
+                        break;
+                    }
+                }
+            }
+
+            if (contact != null)
+            {
+                _ParticipantList.AddParticipant(contact, emailSelected);
+            }
+            else
+            {
+                try
+                {
+                    IEnumerable<Contact> contactsLinq =
+                        from Contact con in e.Results
+                        from Account a in con.Accounts
+                        where con.DisplayName.Equals(e.Filter) && a.Kind == StorageKind.Facebook
+                        select con;
+
+                    if (contactsLinq.Count() > 0)
+                    {
+                        _ParticipantList.AddParticipant(contactsLinq.First(), emailSelected);
+                    }
+                }
+                catch (System.Exception)
+                {
+                    //No results
+                }
+            }
+
+            this.Scroll.ScrollToVerticalOffset(this.ContentPanel.ActualHeight + 100.0);
+        }
+
+        private void MenuItem_DeleteParticipantClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem itm = sender as MenuItem;
+
+            _ParticipantList.RemoveParticipant((string)itm.CommandParameter);
+        }
 		
 		//The foreground color of the text in TitleInput is set to Magenta when TitleInput
 		//gets focus.
@@ -94,7 +164,7 @@ namespace PayMe {
 				string amount = this.AmountInput.Text;
 
 				App.PayMeList.AddPayMe(new PayMeItemModel(title, 
-														contactList.ParticipantList, 
+														_ParticipantList.Participants, 
 														Convert.ToDouble(amount.Replace(".",","))), 
 									ApplicationConstants.insertTrue);
 				App.PayMeList.SaveToDisk();
@@ -102,7 +172,7 @@ namespace PayMe {
 				EmailComposeTask emailComposer = new EmailComposeTask();
 				emailComposer.Subject = "Subject de prueba";
 				emailComposer.Body = "Body de prueba";
-				emailComposer.To = contactList.ParticipantList[0].Email + ";" + contactList.ParticipantList[0].Email;
+				emailComposer.To = _ParticipantList.Participants[0].Email + ";" + _ParticipantList.Participants[0].Email;
 				emailComposer.Show();
 
 				NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
@@ -114,11 +184,13 @@ namespace PayMe {
 			
 			if (ApplicationConstants.placeholderColor.Equals((TitleInput.Foreground as SolidColorBrush).Color)) {
 				MessageBox.Show("Title is required");
+                this.Scroll.ScrollToVerticalOffset(0.0);
 				return false;
             } else if (ApplicationConstants.placeholderColor.Equals((AmountInput.Foreground as SolidColorBrush).Color)) {
                 MessageBox.Show("Amount is required");
+                this.Scroll.ScrollToVerticalOffset(0.0);
                 return false;
-            } else if (contactList.ParticipantList.Count < 2) {
+            } else if (_ParticipantList.Participants.Count < 2) {
                 MessageBox.Show("At least two participants are required");
                 return false;
             }
