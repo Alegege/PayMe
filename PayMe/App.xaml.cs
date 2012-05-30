@@ -14,12 +14,17 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Threading;
 using System.Globalization;
+using Microsoft.Phone.UserData;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace PayMe
 {
     public partial class App : Application
     {
         private static PayMeListViewModel _PayMeList = null;
+
+        private static Dictionary<string, byte[]> _ContactPictures;
 
         /// <summary>
         /// ViewModel estático que utilizan las vistas para enlazarse.
@@ -35,7 +40,51 @@ namespace PayMe
 
                 return _PayMeList;
             }
-        }   
+        }
+
+        public static Dictionary<string, byte[]> ContactPictures
+        {
+            get
+            {
+                // Retrasar la creación del modelo de vista hasta que sea necesario
+                if (_ContactPictures == null)
+                    _ContactPictures = new Dictionary<string, byte[]>();
+
+                return _ContactPictures;
+            }
+        }
+
+        public static void UpdateContactPictures(Contact contact, string email)
+        {
+            if (ContactPictures.ContainsKey(email))
+            {
+                ContactPictures.Remove(email);
+            }
+            
+            ContactPictures.Add(email, GetByteArrayFromImageStream(contact.GetPicture()));
+        }
+
+        public static byte[] GetByteArrayFromImageStream(Stream imageStream)
+        {
+            BitmapImage imgSrc = new BitmapImage();
+
+            if (imageStream != null)
+            {
+                imgSrc.SetSource(imageStream);
+
+                WriteableBitmap bmp = new WriteableBitmap(imgSrc);
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    bmp.SaveJpeg(stream, bmp.PixelWidth, bmp.PixelHeight, 0, 100);
+                    return stream.ToArray();
+                }
+
+            }
+
+            return new byte[1];
+            
+        }
 
         /// <summary>
         /// Proporciona un fácil acceso al marco raíz de la aplicación de Windows Phone.

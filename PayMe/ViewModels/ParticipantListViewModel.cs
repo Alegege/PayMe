@@ -58,6 +58,7 @@ namespace PayMe {
         }
 
         public void AddParticipant(Contact contact, string email) {
+            App.UpdateContactPictures(contact, email);
             Participants.Add(new ParticipantItemModel(contact, email));
             NotifyPropertyChanged("Participants");
         }

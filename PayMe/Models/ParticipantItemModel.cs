@@ -22,9 +22,6 @@ namespace PayMe.Models
     {
         private string _Email;
         private string _DisplayName;
-        [XmlIgnore]
-        private BitmapImage _ContactPictureSource;
-        private byte[] _ByteArray;
         private bool _Paid;
 
         public ParticipantItemModel() {
@@ -40,8 +37,6 @@ namespace PayMe.Models
         {
             this._Email = email;
             this._DisplayName = contact.DisplayName;
-            this._ContactPictureSource = this.GetSourceImageFromContactPicture(contact.GetPicture());
-            this._ByteArray = GetByteArrayFromImage(this._ContactPictureSource);
 
             this._Paid = false;
         }
@@ -109,39 +104,6 @@ namespace PayMe.Models
                 {
                     _DisplayName = value;
                     NotifyPropertyChanged("DisplayName");
-                }
-            }
-        }
-
-        [XmlIgnore]
-        public BitmapImage ContactPictureSource
-        {
-            get
-            {
-                return GetImageFromByteArray(_ByteArray);
-            }
-            set
-            {
-                if (value != _ContactPictureSource)
-                {
-                    _ContactPictureSource = value;
-                    NotifyPropertyChanged("ContactPictureSource");
-                }
-            }
-        }
-
-        public byte[] ByteArray
-        {
-            get
-            {
-                return _ByteArray;
-            }
-            set
-            {
-                if (value != _ByteArray)
-                {
-                    _ByteArray = value;
-                    NotifyPropertyChanged("ByteArray");
                 }
             }
         }
