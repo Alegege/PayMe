@@ -13,9 +13,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Tasks;
-using PayMe.Models;
 using System.Globalization;
 using System.Threading;
+using Microsoft.Phone.UserData;
+using PayMes;
 
 namespace PayMe {
     public class PayMeItemModel : INotifyPropertyChanged

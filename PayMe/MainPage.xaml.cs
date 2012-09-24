@@ -22,17 +22,7 @@ namespace PayMe
         {
             InitializeComponent();
             this.payMeList.DataContext = App.PayMeList;
-            //this.Loaded +=new RoutedEventHandler(MainPage_Loaded);		
         }
-		
-        // Cargar datos para los elementos de ViewModel
-        //private void MainPage_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    if (!App.PayMeList.IsDataLoaded)
-        //    {
-        //        App.PayMeList.LoadData();
-        //    }
-        //}
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

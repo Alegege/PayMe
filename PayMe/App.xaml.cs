@@ -24,7 +24,7 @@ namespace PayMe
     {
         private static PayMeListViewModel _PayMeList = null;
 
-        private static Dictionary<string, byte[]> _ContactPictures;
+        private static ContactPicturesDictionaryModel _ContactPictures = null;
 
         /// <summary>
         /// ViewModel estático que utilizan las vistas para enlazarse.
@@ -42,48 +42,16 @@ namespace PayMe
             }
         }
 
-        public static Dictionary<string, byte[]> ContactPictures
+        public static ContactPicturesDictionaryModel ContactPictures
         {
             get
             {
                 // Retrasar la creación del modelo de vista hasta que sea necesario
                 if (_ContactPictures == null)
-                    _ContactPictures = new Dictionary<string, byte[]>();
+                    _ContactPictures = new ContactPicturesDictionaryModel();
 
                 return _ContactPictures;
             }
-        }
-
-        public static void UpdateContactPictures(Contact contact, string email)
-        {
-            if (ContactPictures.ContainsKey(email))
-            {
-                ContactPictures.Remove(email);
-            }
-            
-            ContactPictures.Add(email, GetByteArrayFromImageStream(contact.GetPicture()));
-        }
-
-        public static byte[] GetByteArrayFromImageStream(Stream imageStream)
-        {
-            BitmapImage imgSrc = new BitmapImage();
-
-            if (imageStream != null)
-            {
-                imgSrc.SetSource(imageStream);
-
-                WriteableBitmap bmp = new WriteableBitmap(imgSrc);
-
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    bmp.SaveJpeg(stream, bmp.PixelWidth, bmp.PixelHeight, 0, 100);
-                    return stream.ToArray();
-                }
-
-            }
-
-            return new byte[1];
-            
         }
 
         /// <summary>
@@ -125,15 +93,16 @@ namespace PayMe
         // Código que se ejecuta al iniciar la aplicación (p. ej., desde Inicio)
         // Este código no se ejecutará cuando se vuelva a activar la aplicación
         private void Application_Launching(object sender, LaunchingEventArgs e) {
+            ContactPictures.LoadData();
         }
 
         // Código que se ejecuta al activar la aplicación (pasa a primer plano)
         // Este código no se ejecutará cuando se inicia la aplicación por primera vez
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            if (!App.PayMeList.IsDataLoaded)
+            if (!_PayMeList.IsDataLoaded)
             {
-                App.PayMeList.LoadData();
+                _PayMeList.LoadData();
             }
         }
 
@@ -148,6 +117,7 @@ namespace PayMe
         // Este código no se ejecutará cuando se desactive la aplicación
         private void Application_Closing(object sender, ClosingEventArgs e) {
             _PayMeList.SaveToDisk();
+            _ContactPictures.SaveToDisk();
         }
 
         // Código que se ejecuta si se produce un error en una navegación

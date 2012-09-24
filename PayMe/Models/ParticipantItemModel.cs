@@ -15,14 +15,19 @@ using Microsoft.Phone.UserData;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using PayMe;
 
-namespace PayMe.Models
+namespace PayMes
 {
     public class ParticipantItemModel : INotifyPropertyChanged
     {
         private string _Email;
         private string _DisplayName;
         private bool _Paid;
+        [XmlIgnore]
+        private BitmapImage _ContactPicture;
 
         public ParticipantItemModel() {
         }
@@ -37,7 +42,7 @@ namespace PayMe.Models
         {
             this._Email = email;
             this._DisplayName = contact.DisplayName;
-
+            this._ContactPicture = GetSourceImageFromContactPicture(contact.GetPicture());
             this._Paid = false;
         }
 
@@ -104,6 +109,95 @@ namespace PayMe.Models
                 {
                     _DisplayName = value;
                     NotifyPropertyChanged("DisplayName");
+                }
+            }
+        }
+
+        [XmlIgnore]
+        public BitmapImage ContactPictureSource
+        {
+            get
+            {
+                return App.ContactPictures.GetContactPicture(Email);
+                //utilizar el método de aquí abajo, y que cuando termine el handler se eleve una notificación de propiedad modificada. La capturo en el ParticipantListViewModel y elevo
+                //otra para capturarla en el PayMeItemModel. 
+                //if (_ContactPicture != null)
+                //{
+                //    return _ContactPicture;
+                //}
+                //else
+                //{
+                //    return null;
+                //}
+                //else if (_PictureStream != null)
+                //{
+                //    BitmapImage imgSrc = new BitmapImage();
+                //    imgSrc.SetSource(_PictureStream);
+
+                //    return imgSrc;
+                //    //return GetImageFromByteArray(App.ContactPictures.ContactPictures[Email]);
+                //}
+                //else
+                //{
+                //    Contacts contacts = new Contacts();
+                //    contacts.SearchCompleted += new EventHandler<ContactsSearchEventArgs>(contacts_SearchCompleted);
+                //    contacts.SearchAsync(DisplayName, FilterKind.DisplayName, Email);
+                //    _IsSyncing = true;
+
+                //    while (_IsSyncing)
+                //    {
+                //    }
+
+                //    return _ContactPicture;
+                //}
+            }
+        }
+
+        public void GetPicture()
+        {
+            Contacts contacts = new Contacts();
+            contacts.SearchCompleted += new EventHandler<ContactsSearchEventArgs>(contacts_SearchCompleted);
+            contacts.SearchAsync(DisplayName, FilterKind.DisplayName, Email);
+        }
+
+        void contacts_SearchCompleted(object sender, ContactsSearchEventArgs e)
+        {
+            Contact contact = null;
+
+            foreach (var result in e.Results)
+            {
+                foreach (ContactEmailAddress contactEmail in result.EmailAddresses)
+                {
+                    if (Email.Equals(contactEmail.EmailAddress))
+                    {
+                        contact = result;
+                        break;
+                    }
+                }
+            }
+
+            if (contact != null)
+            {
+                this._ContactPicture = GetSourceImageFromContactPicture(contact.GetPicture());
+            }
+            else
+            {
+                try
+                {
+                    IEnumerable<Contact> contactsLinq =
+                        from Contact con in e.Results
+                        from Account a in con.Accounts
+                        where con.DisplayName.Equals(e.Filter) && a.Kind == StorageKind.Facebook
+                        select con;
+
+                    if (contactsLinq.Count() > 0)
+                    {
+                        this._ContactPicture = GetSourceImageFromContactPicture(contactsLinq.First().GetPicture());
+                    }
+                }
+                catch (System.Exception)
+                {
+                    //No results
                 }
             }
         }

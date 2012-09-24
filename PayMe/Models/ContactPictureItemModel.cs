@@ -16,6 +16,10 @@ namespace PayMe
         private T _Key;
         private Q _Value;
 
+        public ContactPictureItemModel()
+        {
+        }
+
         public ContactPictureItemModel(T key, Q value)
         {
             this._Key = key;

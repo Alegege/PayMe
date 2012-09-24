@@ -11,7 +11,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
-using PayMe.Models;
 using System.ComponentModel;
 
 namespace PayMe
