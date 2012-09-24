@@ -88,6 +88,8 @@ namespace PayMe {
 
         public PayMeItemModel GetPayMe(long creationDateTicks)
         {
+            PayMeItemModel resultPayMe = new PayMeItemModel();
+
             if (creationDateTicks > 0)
             {
                 foreach (PayMeItemModel payMe in PayMes)
@@ -95,17 +97,14 @@ namespace PayMe {
                 {
                     if (creationDateTicks == payMe.CreationDate.Ticks)
                     {
-                        return payMe;
+                        resultPayMe = payMe;
                     }
                 }
             }
 
-            return new PayMeItemModel();
+            return resultPayMe;
         }
 
-        /// <summary>
-        /// Crea y agrega algunos objetos ItemViewModel a la colección Items.
-        /// </summary>
         public void LoadData() {
             try {
                 using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) {
