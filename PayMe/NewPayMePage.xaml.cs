@@ -17,7 +17,6 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Text.RegularExpressions;
 using Microsoft.Phone.UserData;
-using System.Linq;
 
 
 namespace PayMe {
@@ -50,21 +49,21 @@ namespace PayMe {
         }
 		
 		private void btnContacts_Click(object sender, RoutedEventArgs e) {
-			try {	
+			try {
 				emailTask.Show();
 			} catch (System.InvalidOperationException ex) {
 				MessageBox.Show("An error occurred.");
-			}				
+			}
 		}
-		
+
 		void emailTask_Completed(object sender, EmailResult contact) {
 			if (contact.TaskResult == TaskResult.OK) {
                 if (!_ParticipantList.ExistsParticipant(contact)) {
-                    
+
                     Contacts contacts = new Contacts();
                     contacts.SearchCompleted += new EventHandler<ContactsSearchEventArgs>(contacts_SearchCompleted);
                     contacts.SearchAsync(contact.DisplayName, FilterKind.DisplayName, contact.Email);
-				}				
+				}
 			}
 		}
 
@@ -87,6 +86,7 @@ namespace PayMe {
 
             if (contact != null)
             {
+                App.ContactPictures.UpdateContactPictures(contact, emailSelected);
                 _ParticipantList.AddParticipant(contact, emailSelected);
             }
             else
@@ -101,6 +101,7 @@ namespace PayMe {
 
                     if (contactsLinq.Count() > 0)
                     {
+                        App.ContactPictures.UpdateContactPictures(contactsLinq.First(), emailSelected);
                         _ParticipantList.AddParticipant(contactsLinq.First(), emailSelected);
                     }
                 }

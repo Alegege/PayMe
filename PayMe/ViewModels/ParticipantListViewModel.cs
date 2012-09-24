@@ -15,9 +15,9 @@ using System.IO;
 using Microsoft.Phone.UserData;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using PayMe.Models;
 using System.ComponentModel;
 using System.Collections.Specialized;
+using PayMes;
 
 namespace PayMe {
     public class ParticipantListViewModel : INotifyPropertyChanged
@@ -58,7 +58,7 @@ namespace PayMe {
         }
 
         public void AddParticipant(Contact contact, string email) {
-            App.UpdateContactPictures(contact, email);
+            App.ContactPictures.UpdateContactPictures(contact, email);
             Participants.Add(new ParticipantItemModel(contact, email));
             NotifyPropertyChanged("Participants");
         }
